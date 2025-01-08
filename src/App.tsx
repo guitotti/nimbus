@@ -1,35 +1,37 @@
-import React, { useState } from "react";
-import "./App.css";
-import axios from "axios";
+import { useEffect, useRef, useState } from "react";
+import { useGetWeatherByCityNameQuery } from "./store/slices/api/open-weather/openWeatherApi";
 
 function App() {
-  const [inputValue, setCity] = useState("");
-  const API_KEY = import.meta.env.VITE_OPEN_WEATHER_API_KEY;
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [cityName, setCityName] = useState("");
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCity(e.target.value);
-  };
-  const searchCity = async () => {
-    const city = inputValue;
+  const { data, error, isLoading } = useGetWeatherByCityNameQuery(cityName, { skip: !cityName });
 
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&lang=pt_br&units=metric`;
+  useEffect(() => {
+    if (error) {
+      console.log(error);
+    }
+    if (isLoading) {
+      console.log("Loading...");
+    }
+  }, [error, isLoading]);
 
-    const data = await axios.get(url);
+  const handleSearchButton = () => {
+    setCityName(inputRef.current?.value || "");
+  }
 
-    console.log(data);
-  };
+  console.log(data);
 
   return (
     <>
       <div>
         <h1>Nimbus</h1>
         <input
-          value={inputValue}
-          onChange={handleInputChange}
+          ref={inputRef}
           type="text"
           placeholder="Digite o nome da cidade"
         />
-        <button onClick={searchCity}>Buscar</button>
+        <button onClick={handleSearchButton}>Buscar</button>
       </div>
     </>
   );
