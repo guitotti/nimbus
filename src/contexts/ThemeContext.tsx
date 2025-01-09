@@ -4,6 +4,7 @@ import stylesDark from '../styles/dark.module.css';
 
 interface ThemeContextType {
   styles: { [key: string]: string };
+  theme: 'light' | 'dark';
   toggleTheme: () => void;
 }
 
@@ -22,14 +23,16 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+
   const toggleTheme = () => {
-    setIsDarkMode((prev) => !prev);
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
-  const styles = isDarkMode ? stylesDark : stylesLight;
+  const styles = theme === 'dark' ? stylesDark : stylesLight;
+
   return (
-    <ThemeContext.Provider value={{ styles, toggleTheme }}>
+    <ThemeContext.Provider value={{ styles, theme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
