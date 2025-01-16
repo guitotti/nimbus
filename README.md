@@ -82,4 +82,4 @@ Agradeço o uso da [OpenWeatherAPI](https://openweathermap.org/) para fornecer o
 
 ---
 
-**Nimbus** foi criado com ♥ por [Seu Nome].
+**Nimbus** está sendo desenvolvido com ♥ por Guilherme Totti.
