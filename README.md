@@ -41,8 +41,6 @@ Nimbus é um aplicativo moderno para consulta de clima e previsões meteorológi
 
 3. Instale as dependências do projeto:
 
-   - Usando npm:
-
      ```bash
      npm install
      ```
@@ -57,10 +55,8 @@ Nimbus é um aplicativo moderno para consulta de clima e previsões meteorológi
 
 5. Inicie o servidor de desenvolvimento:
 
-   - Usando npm:
-
      ```bash
-     npm start
+     npm run dev
      ```
 
 6. O aplicativo estará disponível em [http://localhost:3000](http://localhost:3000).
