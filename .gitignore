@@ -1,4 +1,4 @@
-# Web app (React) rules
+# Web app (React)
 # --------------------------------------
 
 # Logs
@@ -25,3 +25,20 @@ web/*.ntvs*
 web/*.njsproj
 web/*.sln
 web/*.sw?
+
+# Server app (Flask)
+# --------------------------------------
+# Arquivos de ambiente virtual
+server/venv/
+server/.venv/
+
+# Arquivos de cache e específicos do Python
+server/__pycache__/
+server/*.pyc
+server/*.pyo
+
+# Logs
+server/*.log
+
+# Arquivos de configurações sensíveis
+server/.env
