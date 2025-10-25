@@ -1,18 +1,12 @@
-from flask import Flask, jsonify
+from app import create_app 
+import os
+from dotenv import load_dotenv
 
-app = Flask(__name__)
+load_dotenv()
 
-@app.route('/')
-def home():
-    return "Servidor Flask rodando! 🚀"
+app = create_app()
 
-@app.route('/test/api')
-def api_test():
-    data = {
-        "status": "online",
-        "message": "API de teste funcionando corretamente!",
-    }
-    return jsonify(data)
+PORT = os.environ.get("PORT", 5001)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=PORT)
