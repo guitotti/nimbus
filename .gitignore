@@ -2,43 +2,43 @@
 # --------------------------------------
 
 # Logs
-web/logs
-web/*.log
-web/npm-debug.log*
-web/yarn-debug.log*
-web/yarn-error.log*
-web/pnpm-debug.log*
-web/lerna-debug.log*
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-web/node_modules
-web/dist
-web/dist-ssr
-web/*.local
+node_modules
+dist
+dist-ssr
+*.local
 
 # Editor directories and files
-web/.vscode/*
-web/!.vscode/extensions.json
-web/.idea
-web/.DS_Store
-web/*.suo
-web/*.ntvs*
-web/*.njsproj
-web/*.sln
-web/*.sw?
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
 # Server app (Flask)
 # --------------------------------------
 # Arquivos de ambiente virtual
-server/venv/
-server/.venv/
+venv/
+.venv/
 
 # Arquivos de cache e específicos do Python
-server/__pycache__/
-server/*.pyc
-server/*.pyo
+__pycache__/
+*.pyc
+*.pyo
 
 # Logs
-server/*.log
+*.log
 
 # Arquivos de configurações sensíveis
-server/.env
+.env
