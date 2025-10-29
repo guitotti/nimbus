@@ -22,3 +22,15 @@ def current_weather(city_name):
         
     except Exception as e:
         return jsonify({'error': 'Internal Server Error'}), 500
+    
+@weather_bp.route('/forecast/<city_name>', methods=['GET'])
+def five_day_forecast(city_name):
+    try:
+        service = OpenWeatherService()
+        forecast_data = service.get_five_day_forecast(city_name)
+        
+        return jsonify(forecast_data), 200
+    
+    except Exception as e:
+         return jsonify({'error': 'Error trying to obatin detailed forecast.'}), 500
+

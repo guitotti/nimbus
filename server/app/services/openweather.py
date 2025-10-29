@@ -33,4 +33,9 @@ class OpenWeatherService:
     def get_current_weather(self, city_name):
         raw_data = self._make_request(self.BASE_URL_CURRENT, city_name)
         # TODO: create a function to format data -> (app/utils/data_formatter)
-        return raw_data 
+        return raw_data
+    
+    def get_five_day_forecast(self, city_name):
+        raw_data = self._make_request(self.BASE_URL_FORECAST, city_name)
+        # TODO: create a function to format data -> (app/utils/data_formatter)
+        return raw_data
