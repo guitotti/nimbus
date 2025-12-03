@@ -14,6 +14,7 @@ const Home: React.FC = () => {
     if (city.trim()) {
       trigger(city);
     }
+    setCity("");
   };
 
   useEffect(() => {
