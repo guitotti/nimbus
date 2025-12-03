@@ -4,6 +4,8 @@ from flask import current_app
 import os
 from dotenv import load_dotenv
 
+from ..utils.forecast_formatter import transform_forecast_data
+
 load_dotenv()
 
 class OpenWeatherService:
@@ -32,10 +34,36 @@ class OpenWeatherService:
 
     def get_current_weather(self, city_name):
         raw_data = self._make_request(self.BASE_URL_CURRENT, city_name)
-        # TODO: create a function to format data -> (app/utils/data_formatter)
-        return raw_data
+
+        first_weather = raw_data.get("weather", [{}])[0]
+    
+        transformed_data = {
+            "cidade": raw_data.get("name"),
+            "codigo_pais": raw_data.get("sys", {}).get("country"),
+            "id_cidade": raw_data.get("id"),
+
+            "latitude": raw_data.get("coord", {}).get("lat"),
+            "longitude": raw_data.get("coord", {}).get("lon"),
+
+            "temperatura_atual_celsius": raw_data.get("main", {}).get("temp"),
+            "sensacao_termica_celsius": raw_data.get("main", {}).get("feels_like"),
+            "temperatura_min_celsius": raw_data.get("main", {}).get("temp_min"),
+            "temperatura_max_celsius": raw_data.get("main", {}).get("temp_max"),
+            "umidade_porcentagem": raw_data.get("main", {}).get("humidity"),
+            "pressao_hpa": raw_data.get("main", {}).get("pressure"),
+
+            "clima_principal": first_weather.get("main"),
+            "descricao_clima": first_weather.get("description"),
+            
+            "velocidade_vento_m_s": raw_data.get("wind", {}).get("speed"),
+            "direcao_vento_graus": raw_data.get("wind", {}).get("deg"),
+        }
+
+        return transformed_data
     
     def get_five_day_forecast(self, city_name):
         raw_data = self._make_request(self.BASE_URL_FORECAST, city_name)
-        # TODO: create a function to format data -> (app/utils/data_formatter)
-        return raw_data
+
+        formatted_data = transform_forecast_data(raw_data)
+
+        return formatted_data
