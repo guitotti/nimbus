@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Heading } from "@radix-ui/themes";
 import SearchInput from "../../components/SearchInput/SearchInput";
 import { useLazyGetCurrentWeatherByCityNameQuery } from "../../api/weatherApiSlice";
+import Card from "../../components/Card/Card";
 
 const PLACEHOLDER = "Busque a cidade...";
 
@@ -36,6 +37,9 @@ const Home: React.FC = () => {
           setCity(e.target.value)
         }
       />
+      <Card>
+        <h1>{data?.temperatura_atual_celsius}</h1>
+      </Card>
     </React.Fragment>
   );
 };
