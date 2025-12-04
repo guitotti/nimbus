@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import type { CurrentWeatherResponse } from "./types";
 
 export const weatherApi = createApi({
   reducerPath: "weatherApi",
@@ -6,10 +7,7 @@ export const weatherApi = createApi({
     baseUrl: "http://localhost:5000/api/v1/weather",
   }),
   endpoints: (build) => ({
-    // TODO: create query type - will be done since we define the contract
-
-    // eslint-disable-next-line
-    getCurrentWeatherByCityName: build.query<any, string>({
+    getCurrentWeatherByCityName: build.query<CurrentWeatherResponse, string>({
       query: (cityName) => `current/${cityName}`,
     }),
   }),
