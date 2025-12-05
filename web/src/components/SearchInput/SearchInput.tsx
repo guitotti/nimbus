@@ -1,5 +1,5 @@
 import React from "react";
-import { TextField, Button } from "@radix-ui/themes";
+import { TextField, Button, Spinner } from "@radix-ui/themes";
 import styles from "./SearchInput.module.css";
 
 interface SearchInputProps {
@@ -8,6 +8,7 @@ interface SearchInputProps {
   value: string;
   onClick: () => void;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  isLoading: boolean
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({
@@ -16,6 +17,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
   value,
   onClick,
   onChange,
+  isLoading
 }) => {
   return (
     <div className={styles.container}>
@@ -29,8 +31,8 @@ const SearchInput: React.FC<SearchInputProps> = ({
         value={value}
       ></TextField.Root>
 
-      <Button style={{ cursor: "pointer" }} onClick={onClick}>
-        {label}
+      <Button style={{ cursor: "pointer" }} onClick={onClick} disabled={isLoading}>
+        {isLoading ? <Spinner size={'1'} /> : label}
       </Button>
     </div>
   );

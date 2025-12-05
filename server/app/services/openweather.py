@@ -38,6 +38,8 @@ class OpenWeatherService:
         first_weather = raw_data.get("weather", [{}])[0]
     
         transformed_data = {
+            "dt": raw_data.get("dt"),
+            "fuso": raw_data.get("timezone"),
             "cidade": raw_data.get("name"),
             "codigo_pais": raw_data.get("sys", {}).get("country"),
             "id_cidade": raw_data.get("id"),

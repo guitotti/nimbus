@@ -1,6 +1,10 @@
+import type { WeatherCondition } from "../components/WeatherCard/weather-icons-config";
+
 export interface CurrentWeatherResponse {
+  dt: number,
+  fuso: number,
   cidade: string,
-  clima_principal: string,
+  clima_principal: WeatherCondition,
   codigo_pais: string,
   descricao_clima: string,
   direcao_vento_graus: number,
