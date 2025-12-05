@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Heading } from "@radix-ui/themes";
 import SearchInput from "../../components/SearchInput/SearchInput";
 import { useLazyGetCurrentWeatherByCityNameQuery } from "../../api/weatherApiSlice";
+import WeatherCard from "../../components/WeatherCard/WeatherCard";
 import Card from "../../components/Card/Card";
+import { FaWind } from "react-icons/fa6";
 
 const PLACEHOLDER = "Busque a cidade...";
 
 const Home: React.FC = () => {
   const [city, setCity] = useState("");
 
-  const [trigger, { data }] = useLazyGetCurrentWeatherByCityNameQuery();
+  const [trigger, { data, isSuccess, isFetching, isLoading }] =
+    useLazyGetCurrentWeatherByCityNameQuery();
 
   const handleSearch = () => {
     if (city.trim()) {
@@ -36,10 +39,24 @@ const Home: React.FC = () => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setCity(e.target.value)
         }
+        isLoading={isFetching || isLoading}
       />
-      <Card>
-        <h1>{data?.temperatura_atual_celsius}</h1>
-      </Card>
+      {isSuccess ? (
+        <>
+          {data?.temperatura_atual_celsius && data?.clima_principal && (
+            <WeatherCard
+              temperature={data?.temperatura_atual_celsius}
+              condition={data.clima_principal}
+            />
+          )}
+          <Card>
+            <FaWind size={64} />
+            <span>{data?.velocidade_vento_m_s}</span> - <span>metros/segundo</span>
+          </Card>
+        </>
+      ) : (
+        <></>
+      )}
     </React.Fragment>
   );
 };
