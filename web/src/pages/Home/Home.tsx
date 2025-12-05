@@ -5,6 +5,7 @@ import { useLazyGetCurrentWeatherByCityNameQuery } from "../../api/weatherApiSli
 import WeatherCard from "../../components/WeatherCard/WeatherCard";
 import Card from "../../components/Card/Card";
 import { FaWind } from "react-icons/fa6";
+import { convertDateTime } from "../../utils/FormatDateTime";
 
 const PLACEHOLDER = "Busque a cidade...";
 
@@ -23,6 +24,10 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     console.log(data);
+    if (data) {
+      const result = convertDateTime(data?.dt, data?.fuso);
+      console.log(result);
+    }
   }, [data]);
 
   return (
@@ -51,7 +56,8 @@ const Home: React.FC = () => {
           )}
           <Card>
             <FaWind size={64} />
-            <span>{data?.velocidade_vento_m_s}</span> - <span>metros/segundo</span>
+            <span>{data?.velocidade_vento_m_s}</span> -{" "}
+            <span>metros/segundo</span>
           </Card>
         </>
       ) : (
