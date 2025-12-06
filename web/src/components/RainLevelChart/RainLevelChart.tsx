@@ -38,7 +38,7 @@ const chartOptions: ChartOptions<ChartType> = {
   scales: {
     y: {
       min: 0.0,
-      max: 0.5,
+      max: 3.0,
     },
   },
 };

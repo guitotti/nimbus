@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Heading } from "@radix-ui/themes";
+import { Heading, Text } from "@radix-ui/themes";
 import SearchInput from "../../components/SearchInput/SearchInput";
 import {
   useLazyGetCurrentWeatherByCityNameQuery,
@@ -7,9 +7,15 @@ import {
 } from "../../api/weatherApiSlice";
 import WeatherCard from "../../components/WeatherCard/WeatherCard";
 import Card from "../../components/Card/Card";
-import { FaWind } from "react-icons/fa6";
 import { convertDateTime } from "../../utils/FormatDateTime";
 import RainLevelChart from "../../components/RainLevelChart/RainLevelChart";
+import styles from "./Home.module.css";
+import Logo from "../../assets/logo-short.png";
+import WindCard from "../../components/WindCard/WindCard";
+import TemperatureCard from "../../components/TemperatureCard/TemperatureCard";
+import AtmPressureCard from "../../components/AtmPressureCard/AtmPressureCard";
+import HumidityLevelCard from "../../components/HumidityLevelCard/HumidityLevelCard";
+import CityInfoCard from "../../components/CityInfoCard/CityInfoCard";
 
 const PLACEHOLDER = "Busque a cidade...";
 
@@ -58,47 +64,67 @@ const Home: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Heading size="6" mb="5">
-        Nimbus
-      </Heading>
-
-      <SearchInput
-        label="Buscar"
-        placeholder={PLACEHOLDER}
-        onClick={handleSearch}
-        value={city}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setCity(e.target.value)
-        }
-        isLoading={
-          isFetchingCurrentWeather ||
-          isLoadingCurrentWeather ||
-          isFetchingForecast ||
-          isLoadingForecast
-        }
-      />
-      {currentWeatherSuccess && (
-        <>
-          {currentWeatherData?.temperatura_atual_celsius &&
-            currentWeatherData?.clima_principal && (
-              <WeatherCard
-                temperature={currentWeatherData?.temperatura_atual_celsius}
-                condition={currentWeatherData.clima_principal}
-              />
+      <div className={styles.main}>
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '36px' }}>
+          <Heading size="6" mb="8">
+            <img src={Logo} alt="" style={{ width: "240px" }} />
+          </Heading>
+          <SearchInput
+            label="Buscar"
+            placeholder={PLACEHOLDER}
+            onClick={handleSearch}
+            value={city}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setCity(e.target.value)
+            }
+            isLoading={
+              isFetchingCurrentWeather ||
+              isLoadingCurrentWeather ||
+              isFetchingForecast ||
+              isLoadingForecast
+            }
+          />
+        </div>
+        {currentWeatherData && forecastData && (
+          <div className={styles["content-container"]}>
+            <Text size="7" color="iris">Previsão do tempo hoje:</Text>
+            {currentWeatherSuccess && (
+              <div className={styles.row}>
+                <CityInfoCard
+                  city={currentWeatherData?.cidade}
+                  countryCode={currentWeatherData?.codigo_pais}
+                  latitude={currentWeatherData?.latitude}
+                  longitude={currentWeatherData?.longitude}
+                />
+                <WeatherCard
+                  temperature={currentWeatherData?.temperatura_atual_celsius}
+                  condition={currentWeatherData.clima_principal}
+                />
+                <WindCard
+                  windVelocity={currentWeatherData?.velocidade_vento_m_s}
+                />
+                <TemperatureCard
+                  maxTemp={currentWeatherData?.temperatura_max_celsius}
+                  minTemp={currentWeatherData?.temperatura_min_celsius}
+                  thermalSensation={
+                    currentWeatherData?.sensacao_termica_celsius
+                  }
+                />
+                <AtmPressureCard pressure={currentWeatherData?.pressao_hpa} />
+                <HumidityLevelCard
+                  humidity={currentWeatherData?.umidade_porcentagem}
+                />
+              </div>
             )}
-          <Card>
-            <FaWind size={64} />
-            <span>{currentWeatherData?.velocidade_vento_m_s}</span> -{" "}
-            <span>metros/segundo</span>
-          </Card>
-          
-        </>
-      )}
-      {forecastSuccess && (
-        <Card>
-          <RainLevelChart data={forecastData.previsoes_horarias}/>
-        </Card>
-      )}
+            <Text size="7" style={{ marginTop: "20px" }} color="indigo">Análise dos próximos dias:</Text>
+            {forecastSuccess && (
+              <Card>
+                <RainLevelChart data={forecastData.previsoes_horarias} />
+              </Card>
+            )}
+          </div>
+        )}
+      </div>
     </React.Fragment>
   );
 };
