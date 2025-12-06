@@ -48,8 +48,6 @@ interface RainLevelChartProps {
 }
 
 const RainLevelChart: React.FC<RainLevelChartProps> = (data) => {
-  console.log('Rain Chart', data);
-
   const firstValues = data.data.slice(0, 30);
 
   const getAcumulatedRain = () => {
@@ -65,8 +63,6 @@ const RainLevelChart: React.FC<RainLevelChartProps> = (data) => {
     })
     return dateTime
   }
-
-  console.log(getAcumulatedRain())
 
   const chartData: ChartData<ChartType> = {
     labels: getAcumulatedRainTime(),
