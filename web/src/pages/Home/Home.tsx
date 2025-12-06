@@ -18,6 +18,7 @@ import HumidityLevelCard from "../../components/HumidityLevelCard/HumidityLevelC
 import CityInfoCard from "../../components/CityInfoCard/CityInfoCard";
 import Nimbus from "../../components/Nimbus/Nimbus";
 import TemperatureChart from "../../components/TemperatureChart/TemperatureChart";
+import WindGradientChart from "../../components/WindGradientChart/WindGradientChart";
 
 const PLACEHOLDER = "Busque a cidade...";
 
@@ -203,6 +204,33 @@ const Home: React.FC = () => {
                 <TemperatureChart data={forecastData.previsoes_horarias} />
               </Card>
             )}
+
+            {forecastSuccess && (
+              <Card
+                style={{
+                  backgroundColor: "#e0f0ff",
+                  border: "1px solid #a7d4ff",
+                  borderRadius: "10px",
+                  padding: "20px",
+                  marginTop: "25px",
+                  boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+                }}
+              >
+                <h2
+                  style={{
+                    marginBottom: "10px",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    color: "#005c99",
+                  }}
+                >
+                    Velocidade do vento
+                </h2>
+                <WindGradientChart data={forecastData.previsoes_horarias}/> 
+              </Card>
+            )}
+
           </div>
         )}
       </div>
