@@ -17,6 +17,7 @@ import AtmPressureCard from "../../components/AtmPressureCard/AtmPressureCard";
 import HumidityLevelCard from "../../components/HumidityLevelCard/HumidityLevelCard";
 import CityInfoCard from "../../components/CityInfoCard/CityInfoCard";
 import Nimbus from "../../components/Nimbus/Nimbus";
+import TemperatureChart from "../../components/TemperatureChart/TemperatureChart";
 
 const PLACEHOLDER = "Busque a cidade...";
 
@@ -118,8 +119,8 @@ const Home: React.FC = () => {
 
         {currentWeatherData && forecastData && (
           <div className={styles["content-container"]}>
-            <Text size="7" color="iris">
-              Previsão do tempo hoje:
+            <Text size="7" color="gray">
+              Clima agora em {`${currentWeatherData?.cidade}`}:
             </Text>
             {currentWeatherSuccess && (
               <div className={styles.row}>
@@ -149,12 +150,17 @@ const Home: React.FC = () => {
                 />
               </div>
             )}
-            <Text size="7" style={{ marginTop: "20px" }} color="indigo">
+            <Text size="7" style={{ marginTop: "20px" }} color="gray">
               Análise dos próximos dias:
             </Text>
             {forecastSuccess && (
               <Card>
                 <RainLevelChart data={forecastData.previsoes_horarias} />
+              </Card>
+            )}
+            {forecastSuccess && (
+              <Card>
+                <TemperatureChart data={forecastData.previsoes_horarias} /> 
               </Card>
             )}
           </div>

@@ -2,7 +2,6 @@ import type React from "react";
 import Card from "../Card/Card";
 import {
   WiHot,
-  WiSnowflakeCold,
   WiThermometer,
   WiThermometerExterior,
 } from "react-icons/wi";
@@ -64,12 +63,7 @@ const TemperatureCard: React.FC<TemperatureCardProps> = ({
           alignItems: "center",
         }}
       >
-        {thermalSensation >= 30 && (
-          <WiHot size={64} style={{ color: "white" }} />
-        )}
-        {thermalSensation < 0 && (
-          <WiSnowflakeCold size={64} style={{ color: "white" }} />
-        )}
+        <WiHot size={64} style={{ color: "white" }} />
         <Text size="5" color="blue">
           Sensação térmica:
         </Text>
