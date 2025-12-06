@@ -154,13 +154,53 @@ const Home: React.FC = () => {
               Análise dos próximos dias:
             </Text>
             {forecastSuccess && (
-              <Card>
+              <Card
+                style={{
+                  backgroundColor: "#e0f0ff",
+                  border: "1px solid #a7d4ff",
+                  borderRadius: "10px",
+                  padding: "20px",
+                  marginTop: "20px",
+                  boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+                }}
+              >
+                <h2
+                  style={{
+                    marginBottom: "10px",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    color: "#005c99",
+                  }}
+                >
+                  Chuva Acumulada (Próximos dias)
+                </h2>
                 <RainLevelChart data={forecastData.previsoes_horarias} />
               </Card>
             )}
             {forecastSuccess && (
-              <Card>
-                <TemperatureChart data={forecastData.previsoes_horarias} /> 
+              <Card
+                style={{
+                  backgroundColor: "#e0f0ff",
+                  border: "1px solid #a7d4ff",
+                  borderRadius: "10px",
+                  padding: "20px",
+                  marginTop: "25px",
+                  boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+                }}
+              >
+                <h2
+                  style={{
+                    marginBottom: "10px",
+                    fontSize: "20px",
+                    fontWeight: "bold",
+                    textAlign: "center",
+                    color: "#005c99",
+                  }}
+                >
+                  Variação de Temperatura e Umidade
+                </h2>
+                <TemperatureChart data={forecastData.previsoes_horarias} />
               </Card>
             )}
           </div>
