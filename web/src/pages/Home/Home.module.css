@@ -1,5 +1,6 @@
 .main {
   padding: 78px 156px;
+  min-height: 100vh;
 }
 
 .content-container {
