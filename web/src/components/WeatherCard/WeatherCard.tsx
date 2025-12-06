@@ -5,6 +5,7 @@ import {
 } from "./weather-icons-config.ts";
 import Card from "../Card/Card.tsx";
 import { Text } from "@radix-ui/themes";
+import { WeatherLabels } from "./weather-icons-config.ts";
 
 interface WeatherCardProps {
   condition: WeatherCondition;
@@ -23,15 +24,17 @@ const WeatherCard: React.FC<WeatherCardProps> = ({
         backgroundColor: "#0079fa",
         display: "flex",
         flexDirection: "column",
-        alignItems: 'center',
+        alignItems: "center",
       }}
     >
       <Text size="5" color="blue">
-        <strong>Condição: {condition}</strong>
+        <strong>Condição: {WeatherLabels[condition]}</strong>
       </Text>
       <IconComponent size={128} color="white" />
 
-      <Text size="5" color="blue">Temperatura: <strong>{temperature} °C</strong></Text>
+      <Text size="5" color="blue">
+        Temperatura: <strong>{temperature} °C</strong>
+      </Text>
     </Card>
   );
 };
