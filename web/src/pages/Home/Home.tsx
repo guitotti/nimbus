@@ -16,6 +16,7 @@ import TemperatureCard from "../../components/TemperatureCard/TemperatureCard";
 import AtmPressureCard from "../../components/AtmPressureCard/AtmPressureCard";
 import HumidityLevelCard from "../../components/HumidityLevelCard/HumidityLevelCard";
 import CityInfoCard from "../../components/CityInfoCard/CityInfoCard";
+import Nimbus from "../../components/Nimbus/Nimbus";
 
 const PLACEHOLDER = "Busque a cidade...";
 
@@ -65,7 +66,14 @@ const Home: React.FC = () => {
   return (
     <React.Fragment>
       <div className={styles.main}>
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '36px' }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            gap: "36px",
+          }}
+        >
           <Heading size="6" mb="8">
             <img src={Logo} alt="" style={{ width: "240px" }} />
           </Heading>
@@ -85,9 +93,34 @@ const Home: React.FC = () => {
             }
           />
         </div>
+
+        {!currentWeatherData && !forecastData && <Nimbus />}
+
+        {!currentWeatherData && !forecastData && (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "16px",
+              alignItems: "baseline",
+              marginLeft: "16px",
+            }}
+          >
+            <Text size="5" color="plum">
+              <strong>Bem vindo ao Nimbus!</strong>
+            </Text>
+            <Text color="plum">
+              Digite o nome de uma cidade para buscar dados de previsão do
+              tempo...
+            </Text>
+          </div>
+        )}
+
         {currentWeatherData && forecastData && (
           <div className={styles["content-container"]}>
-            <Text size="7" color="iris">Previsão do tempo hoje:</Text>
+            <Text size="7" color="iris">
+              Previsão do tempo hoje:
+            </Text>
             {currentWeatherSuccess && (
               <div className={styles.row}>
                 <CityInfoCard
@@ -116,7 +149,9 @@ const Home: React.FC = () => {
                 />
               </div>
             )}
-            <Text size="7" style={{ marginTop: "20px" }} color="indigo">Análise dos próximos dias:</Text>
+            <Text size="7" style={{ marginTop: "20px" }} color="indigo">
+              Análise dos próximos dias:
+            </Text>
             {forecastSuccess && (
               <Card>
                 <RainLevelChart data={forecastData.previsoes_horarias} />
