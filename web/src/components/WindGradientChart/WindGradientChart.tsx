@@ -94,7 +94,7 @@ const WindGradientChart: React.FC<WindGradientChartProps> = (data) => {
     };
 
     setChartData(updatedData);
-  }, []);
+  }, [data]);
 
   const options: ChartOptions<"line"> = {
     responsive: true,
