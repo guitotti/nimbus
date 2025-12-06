@@ -1,14 +1,9 @@
-/* src/styles/reset.css */
-/* Reset Básico para garantir consistência */
-
 *,
 *::before,
 *::after {
-  /* Define o modelo de caixa para incluir padding e bordas na largura/altura */
   box-sizing: border-box;
 }
 
-/* Remove margens e preenchimentos padrão */
 body,
 h1, h2, h3, h4, h5, h6,
 p, blockquote, figure,
@@ -19,36 +14,30 @@ dl, dd {
   padding: 0;
 }
 
-/* Define a fonte padrão e suaviza a renderização */
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeSpeed;
 }
 
-/* Remove estilos de lista padrão em ul e ol */
 ul, ol {
   list-style: none;
 }
 
-/* Torna as imagens mais responsivas */
 img {
   max-width: 100%;
   display: block;
 }
 
-/* Reseta estilos de herança para elementos de formulário */
 input, button, textarea, select {
   font: inherit;
 }
 
-/* Evita overflow de texto */
 p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
 
-/* Garante que o elemento root tenha no mínimo a altura da viewport */
 #root,
-#__next { /* Se você estiver usando outras convenções de ID root */
+#__next {
   min-height: 100vh;
 }
