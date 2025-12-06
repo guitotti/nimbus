@@ -67,7 +67,7 @@ const TemperatureChart: React.FC<TemperatureChartProps> = (data) => {
     plugins: {
       title: {
         display: true,
-        text: "Variação de Temperatura",
+        text: "Variação de Temperatura e Umidade",
       },
     },
     scales: {
