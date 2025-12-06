@@ -3,11 +3,12 @@ import { Card as RadixCard } from "@radix-ui/themes";
 
 interface CardProps {
   children: ReactNode;
+  style?: React.CSSProperties
 }
 
-const Card: React.FC<CardProps> = ({children}) => {
+const Card: React.FC<CardProps> = ({style, children, ...props}) => {
   return (
-    <RadixCard>
+    <RadixCard style={style} {...props}>
       {children}
     </RadixCard>
   );

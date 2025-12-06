@@ -1,34 +1,60 @@
 import React, { useEffect, useState } from "react";
 import { Heading } from "@radix-ui/themes";
 import SearchInput from "../../components/SearchInput/SearchInput";
-import { useLazyGetCurrentWeatherByCityNameQuery } from "../../api/weatherApiSlice";
+import {
+  useLazyGetCurrentWeatherByCityNameQuery,
+  useLazyGetForecastWeatherByCityNameQuery,
+} from "../../api/weatherApiSlice";
 import WeatherCard from "../../components/WeatherCard/WeatherCard";
 import Card from "../../components/Card/Card";
 import { FaWind } from "react-icons/fa6";
 import { convertDateTime } from "../../utils/FormatDateTime";
+import RainLevelChart from "../../components/RainLevelChart/RainLevelChart";
 
 const PLACEHOLDER = "Busque a cidade...";
 
 const Home: React.FC = () => {
   const [city, setCity] = useState("");
 
-  const [trigger, { data, isSuccess, isFetching, isLoading }] =
-    useLazyGetCurrentWeatherByCityNameQuery();
+  const [
+    currentWeatherTrigger,
+    {
+      data: currentWeatherData,
+      isSuccess: currentWeatherSuccess,
+      isFetching: isFetchingCurrentWeather,
+      isLoading: isLoadingCurrentWeather,
+    },
+  ] = useLazyGetCurrentWeatherByCityNameQuery();
+
+  const [
+    forecastTrigger,
+    {
+      data: forecastData,
+      isSuccess: forecastSuccess,
+      isFetching: isFetchingForecast,
+      isLoading: isLoadingForecast,
+    },
+  ] = useLazyGetForecastWeatherByCityNameQuery();
 
   const handleSearch = () => {
     if (city.trim()) {
-      trigger(city);
+      currentWeatherTrigger(city);
+      forecastTrigger(city);
     }
     setCity("");
   };
 
   useEffect(() => {
-    console.log(data);
-    if (data) {
-      const result = convertDateTime(data?.dt, data?.fuso);
+    console.log(currentWeatherData);
+    console.log(forecastData);
+    if (currentWeatherData) {
+      const result = convertDateTime(
+        currentWeatherData?.dt,
+        currentWeatherData?.fuso
+      );
       console.log(result);
     }
-  }, [data]);
+  }, [currentWeatherData, forecastData]);
 
   return (
     <React.Fragment>
@@ -44,24 +70,34 @@ const Home: React.FC = () => {
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setCity(e.target.value)
         }
-        isLoading={isFetching || isLoading}
+        isLoading={
+          isFetchingCurrentWeather ||
+          isLoadingCurrentWeather ||
+          isFetchingForecast ||
+          isLoadingForecast
+        }
       />
-      {isSuccess ? (
+      {currentWeatherSuccess && (
         <>
-          {data?.temperatura_atual_celsius && data?.clima_principal && (
-            <WeatherCard
-              temperature={data?.temperatura_atual_celsius}
-              condition={data.clima_principal}
-            />
-          )}
+          {currentWeatherData?.temperatura_atual_celsius &&
+            currentWeatherData?.clima_principal && (
+              <WeatherCard
+                temperature={currentWeatherData?.temperatura_atual_celsius}
+                condition={currentWeatherData.clima_principal}
+              />
+            )}
           <Card>
             <FaWind size={64} />
-            <span>{data?.velocidade_vento_m_s}</span> -{" "}
+            <span>{currentWeatherData?.velocidade_vento_m_s}</span> -{" "}
             <span>metros/segundo</span>
           </Card>
+          
         </>
-      ) : (
-        <></>
+      )}
+      {forecastSuccess && (
+        <Card>
+          <RainLevelChart data={forecastData.previsoes_horarias}/>
+        </Card>
       )}
     </React.Fragment>
   );
