@@ -92,7 +92,7 @@ const WindGradientChart: React.FC<WindGradientChartProps> = (data) => {
         },
       ],
     };
-    console.log(getWindVelocity())
+
     setChartData(updatedData);
   }, []);
 
